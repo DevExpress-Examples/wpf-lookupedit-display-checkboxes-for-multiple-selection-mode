@@ -11,7 +11,7 @@
         <dxg:LookUpEdit ItemsSource="{Binding Items}"
                         VerticalAlignment="Center"
                         Margin="30,0"
-                        PopupFooterButtons="OkCancel"
+                        IsTextEditable="False"
                         DisplayMember="Name"
                         ValueMember="ID">
             <dxg:LookUpEdit.PopupContentTemplate>
