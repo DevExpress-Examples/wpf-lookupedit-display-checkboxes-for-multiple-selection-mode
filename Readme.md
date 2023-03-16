@@ -3,18 +3,26 @@
 [![](https://img.shields.io/badge/Open_in_DevExpress_Support_Center-FF7200?style=flat-square&logo=DevExpress&logoColor=white)](https://supportcenter.devexpress.com/ticket/details/T830489)
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 <!-- default badges end -->
-# LookUpEdit - How to support multiple row selection with CheckBoxes
 
-Our **LookUpEdit** supports multiple row selection out of the box. For this, it's sufficient to set its [StyleSettings](https://documentation.devexpress.com/WPF/DevExpress.Xpf.Grid.LookUp.LookUpEdit.StyleSettings.property) property to one of corresponding StyleSettings objects (see: [LookUpEdit operation modes](https://documentation.devexpress.com/WPF/116556/Controls-and-Libraries/Data-Editors/Common-Features/Editor-Operation-Modes/LookUpEdit)). 
+# WPF LookUpEdit - Display CheckBoxes for Multiple Selection Mode
 
-This example illustrates how to show the [Selector Column](https://documentation.devexpress.com/WPF/17808/Controls-and-Libraries/Data-Grid/Visual-Elements/Table-View-Elements/Selector-Column) in the GridControl from LookUpEdit's popup when multiple row selection is enabled. To do this, it's sufficient to define a custom ControlTemplate with the **PART_GridControl** GridControl in LookUpEdit's [PopupContentTemplate](https://documentation.devexpress.com/WPF/DevExpress.Xpf.Editors.PopupBaseEdit.PopupContentTemplate.property) property, and set the [GridControl.SelectionMode](https://documentation.devexpress.com/WPF/DevExpress.Xpf.Grid.DataControlBase.SelectionMode.property) and [TableView.ShowCheckBoxSelectorColumn](https://documentation.devexpress.com/WPF/DevExpress.Xpf.Grid.TableView.ShowCheckBoxSelectorColumn.property) properties to **Row** (or MultipleRow) and **True** respectively: 
+This example displays checkboxes that allow users to select rows in multiple selection mode.
 
-````XAML
+![image](https://user-images.githubusercontent.com/65009440/225592162-ba450bf8-7bc9-4a62-b066-0cd15c990b51.png)
+
+## Implementation Details
+
+1. Set the editor's [StyleSettings](https://docs.devexpress.com/WPF/DevExpress.Xpf.Editors.BaseEdit.StyleSettings) property to an object that supports multiple selection mode ([MultiSelectLookUpEditStyleSettings](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.LookUp.MultiSelectLookUpEditStyleSettings), [TokenLookUpEditStyleSettings](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.LookUp.TokenLookUpEditStyleSettings), or [SearchTokenLookUpEditStyleSettings](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.LookUp.SearchTokenLookUpEditStyleSettings)).
+2. Use the [PopupContentTemplate](https://docs.devexpress.com/WPF/DevExpress.Xpf.Editors.PopupBaseEdit.PopupContentTemplate) property to specify a custom [GridControl](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.GridControl).
+3. Set the `GridControl`'s name to **PART_GridControl**.
+4. Use the [TableView.ShowCheckBoxSelectorColumn](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.TableView.ShowCheckBoxSelectorColumn) property to display the [Selector Column](https://docs.devexpress.com/WPF/17808/controls-and-libraries/data-grid/visual-elements/table-view-elements/selector-column).
+
+```xaml
 <dxg:LookUpEdit ...>
     <dxg:LookUpEdit.PopupContentTemplate>
         <ControlTemplate>
             <dxg:GridControl x:Name="PART_GridControl"
-                                SelectionMode="Row">
+                             SelectionMode="Row">
                 <dxg:GridControl.View>
                     <dxg:TableView ShowCheckBoxSelectorColumn="True"/>
                 </dxg:GridControl.View>
@@ -25,4 +33,23 @@ This example illustrates how to show the [Selector Column](https://documentation
         <dxg:MultiSelectLookUpEditStyleSettings/>
     </dxg:LookUpEdit.StyleSettings>
 </dxg:LookUpEdit>
-````
+```
+
+## Files to Review
+
+* [MainWindow.xaml](./CS/LookUpEditWithCheckboxes/MainWindow.xaml) (VB: [MainWindow.xaml](./VB/LookUpEditWithCheckboxes/MainWindow.xaml))
+
+## Documentation
+
+* [LookUpEdit](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.LookUp.LookUpEdit)
+* [LookUpEdit Operation Modes](https://docs.devexpress.com/WPF/116556/controls-and-libraries/data-editors/common-features/editor-operation-modes/lookupedit)
+* [Selector Column](https://docs.devexpress.com/WPF/17808/controls-and-libraries/data-grid/visual-elements/table-view-elements/selector-column)
+* [Implement multi-select in DevExpress WPF Data Editors (ComboBoxEdit, LookUpEdit, ListBoxEdit)](https://supportcenter.devexpress.com/ticket/details/t889444/how-to-implement-multi-select-when-using-devexpress-wpf-data-editors-comboboxedit)
+
+## More Examples
+
+* [WPF LookUpEdit - Enable Multiple Selection Mode](https://github.com/DevExpress-Examples/wpf-lookupedit-enable-multiple-selection-mode)
+* [WPF LookUpEdit - Customize the Embedded Data Grid](https://github.com/DevExpress-Examples/wpf-lookupedit-customize-the-embedded-data-grid)
+* [WPF LookUpEdit - Display a TreeList as Popup Content](https://github.com/DevExpress-Examples/wpf-lookupedit-display-treelist-as-popup-content)
+* [WPF LookUpEdit - Filter by Multiple Columns](https://github.com/DevExpress-Examples/wpf-lookupedit-filter-by-multiple-columns)
+* [WPF LookUpEdit - Process New Values](https://github.com/DevExpress-Examples/wpf-lookupedit-process-new-values)
